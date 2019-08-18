@@ -1,0 +1,24 @@
+[
+   {
+      "task": "ayam berkokok ",
+      "status": false,
+      "tags": [
+         "acim"
+      ]
+   },
+   {
+      "task": "bersin ",
+      "status": false,
+      "tags": []
+   },
+   {
+      "task": "/usr/bin/node /home/taufik/Desktop/Taufik/c13/kerja.js add makan ",
+      "status": false,
+      "tags": []
+   },
+   {
+      "task": "donat ",
+      "status": false,
+      "tags": []
+   }
+]
