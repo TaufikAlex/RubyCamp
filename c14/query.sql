@@ -54,11 +54,12 @@ INSERT INTO DOSEN (NIP, nama_dosen)
 VALUES
     (001, 'RONSEN PURBA'),
     (002, 'KRISTIAN TELEMBANUA');
+    
 
 CREATE TABLE kontrak
 (
     kontrak_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nim VARCHAR(10) NOT NULL,
+    nim VARCHAR(10),
     NIP VARCHAR(10) NOT NULL,
     makul_id VARCHAR(10) NOT NULL,
     nilai VARCHAR(2) NOT NULL,
@@ -71,6 +72,4 @@ CREATE TABLE kontrak
 );
 INSERT INTO kontrak (nim, NIP, makul_id, nilai)
 VALUES
-(0001, 001,01, 'A'),
-(0002, 002,02, 'B'),
-(0003, 001,03, 'C');
+(0001, '001','03', 'C');
