@@ -77,10 +77,10 @@ CREATE TABLE kontrak
 );
 INSERT INTO kontrak (nim, NIP, makul_id, nilai,jumlah)
 VALUES
-(142018, '001','01', 'A',1),
-(152019, '002','02', 'B',1),
-(162020, '003','03', 'C',1),
-(172021, '001','04', 'D',1);
+(142018, '001','1', 'A',1),
+(152019, '002','2', 'B',1),
+(162020, '003','3', 'C',1),
+(172021, '001','4', 'D',1);
 
 -- ===============================================================================================
 -- //Soal No 1
@@ -118,10 +118,10 @@ WHERE sks > 10;
 
 -- //Soal no 5
 -- tampilkan mahasiswa yang mengontrak mata kuliah 'data mining'.
-SELECT kontrak.makul_id,
-Matakuliah.nama_matkul
-FROM kontrak
-INNER JOIN Matakuliah
+SELECT nama_mhs, nama_matkul,
+
+FROM kontrak,mahasiswa, Matakuliah
+WHERE kontrak.nim = mahasiswa.nim
 ON kontrak.makul_id = Matakuliah.makul_id
 WHERE nama_matkul LIKE 'data mining';
 
@@ -132,6 +132,12 @@ FROM kontrak
 JOIN mahasiswa ON kontrak.nim = mahasiswa.nim
 JOIN Matakuliah ON kontrak.makul_id = Matakuliah.makul_id
 WHERE nama_matkul LIKE 'data mining%';
+
+SELECT nama_mhs, nama_matkul 
+FROM kontrak, mahasiswa,Matakuliah 
+WHERE kontrak.nim = mahasiswa.nim 
+AND kontrak.makul_id = Matakuliah.makul_id 
+AND nama_matkul='data mining';
 
 -- //Soal no 6
 -- tampilkan jumlah mahasiswa untuk setiap dosen
