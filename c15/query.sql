@@ -33,6 +33,9 @@ VALUES
     (162020, 313,'sigit',17 ,'Jakarta pusat'),
     (172021, 111,'shafi', 20,'Bandung Timur');
 
+INSERT INTO mahasiswa (nim, jurusan_id, nama_mhs, umur, alamat) VALUES(182022,212,'Adnan',20,'Kalimantan');
+INSERT INTO mahasiswa (nim, jurusan_id, nama_mhs, umur, alamat) VALUES(192023,313,'Zidane',17,'Lebak Bulus');
+
 CREATE TABLE Matakuliah
 (
     makul_id CHAR(8) NOT NULL,
@@ -42,10 +45,10 @@ CREATE TABLE Matakuliah
 );
 INSERT INTO Matakuliah (makul_id, nama_matkul, SKS)
 VALUES
-    (01, 'Belajar Javascript', 22),
-    (02, 'data mining', 12),
-    (03, 'FISIKA', 8),
-    (04, 'Data Trader', 10);
+    (1, 'Belajar Javascript', 22),
+    (2, 'data mining', 12),
+    (3, 'FISIKA', 8),
+    (4, 'Data Trader', 10);
 
 CREATE TABLE DOSEN
 (
@@ -81,6 +84,9 @@ VALUES
 (152019, '002','2', 'B',1),
 (162020, '003','3', 'C',1),
 (172021, '001','4', 'D',1);
+
+INSERT INTO kontrak (nim,NIP,makul_id,nilai,jumlah) VALUES (182022,'002','2','E',1);
+INSERT INTO kontrak (nim,NIP,makul_id,nilai,jumlah) VALUES (192023,'003','3','D',1);
 
 -- ===============================================================================================
 -- //Soal No 1
@@ -150,3 +156,26 @@ ORDER BY umur DESC;
 -- //SOal No 8
 --  tampilkan kontrak matakuliah yang harus diulang (nilai D dan E), serta tampilkan data mahasiswa jurusan dan dosen secara lengkap
 -- gunakan mode join dan WHERE clause (solusi terdiri dari 2 syntax SQL)
+SELECT mahasiswa.nim,nama_mhs,
+jurusan.nama_jurusan,
+Matakuliah.nama_matkul,
+DOSEN.nama_dosen,
+kontrak.kontrak_id,
+kontrak.nilai
+FROM mahasiswa, jurusan, Matakuliah, DOSEN, kontrak
+WHERE kontrak.nim = mahasiswa.nim
+AND kontrak.makul_id = Matakuliah.makul_id
+AND kontrak.NIP = DOSEN.NIP
+GROUP BY nilai BETWEEN 'D' AND 'E';
+
+SELECT mahasiswa.nim,nama_mhs,
+jurusan.nama_jurusan,
+Matakuliah.nama_matkul,
+DOSEN.nama_dosen,
+kontrak.kontrak_id,
+kontrak.nilai
+FROM mahasiswa, kontrak
+WHERE kontrak.nim = mahasiswa.nim
+AND kontrak.makul_id = Matakuliah.makul_id
+AND kontrak.NIP = DOSEN.NIP
+AND nilai BETWEEN 'D' AND 'E';
