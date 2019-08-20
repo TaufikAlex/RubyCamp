@@ -106,7 +106,7 @@ WHERE umur <= 20;
 
 -- //Soal No 3
 -- tampilkan mahasiswa yang memiliki nilai 'B' ke atas.
-SELECT kontrak. nim, nilai,
+SELECT DISTINCT kontrak. nim, nilai,
 mahasiswa. nama_mhs
 FROM kontrak
 INNER JOIN mahasiswa
