@@ -107,19 +107,27 @@ INNER JOIN mahasiswa
 ON kontrak.nim = mahasiswa.nim
 WHERE nilai BETWEEN 'A' AND 'B';
 
--- //Soal No 4 Belum Siap
+-- //Soal No 4
 -- tampilkan mahasiswa yang memiliki jumlah SKS lebih dari 10.
-SELECT kontrak. makul_id,
-mahasiswa. nama_mhs
-FROM kontrak
-INNER JOIN Matakuliah
-ON kontrak.makul_id = mahasiswa.nim
-WHERE sks > 10;
+SELECT nama_mhs, nama_matkul, sks
+FROM kontrak, mahasiswa, Matakuliah
+WHERE kontrak.nim = mahasiswa.nim
+AND kontrak.makul_id = Matakuliah.makul_id
+GROUP BY nama_mhs HAVING SUM(sks) > 10;
+
 
 -- //Soal no 5
 -- tampilkan mahasiswa yang mengontrak mata kuliah 'data mining'.
-SELECT nama_mhs, nama_matkul,
 
+
+SELECT nama_mhs, nama_matkul 
+FROM kontrak, mahasiswa,Matakuliah 
+WHERE kontrak.nim = mahasiswa.nim 
+AND kontrak.makul_id = Matakuliah.makul_id 
+AND nama_matkul='data mining';
+
+
+SELECT nama_mhs, nama_matkul,
 FROM kontrak,mahasiswa, Matakuliah
 WHERE kontrak.nim = mahasiswa.nim
 ON kontrak.makul_id = Matakuliah.makul_id
@@ -133,11 +141,6 @@ JOIN mahasiswa ON kontrak.nim = mahasiswa.nim
 JOIN Matakuliah ON kontrak.makul_id = Matakuliah.makul_id
 WHERE nama_matkul LIKE 'data mining%';
 
-SELECT nama_mhs, nama_matkul 
-FROM kontrak, mahasiswa,Matakuliah 
-WHERE kontrak.nim = mahasiswa.nim 
-AND kontrak.makul_id = Matakuliah.makul_id 
-AND nama_matkul='data mining';
 
 -- //Soal no 6
 -- tampilkan jumlah mahasiswa untuk setiap dosen
