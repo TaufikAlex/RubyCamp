@@ -84,6 +84,7 @@ VALUES
 
 -- ===============================================================================================
 -- //Soal No 1
+-- tampilkan seluruh data mahasiswa beserta nama jurusannya
 SELECT mahasiswa.*,
 jurusan.nama_jurusan
 FROM mahasiswa
@@ -92,11 +93,13 @@ ON jurusan.jurusan_id = mahasiswa.jurusan_id
 
 
 -- // Soal no 2
+-- tampilkan mahasiswa yang memiliki umur dibawah 20 tahun.
 SELECT nim, nama_mhs, umur
 FROM mahasiswa
 WHERE umur <= 20;
 
 -- //Soal No 3
+-- tampilkan mahasiswa yang memiliki nilai 'B' ke atas.
 SELECT kontrak. nim, nilai,
 mahasiswa. nama_mhs
 FROM kontrak
@@ -105,6 +108,7 @@ ON kontrak.nim = mahasiswa.nim
 WHERE nilai BETWEEN 'A' AND 'B';
 
 -- //Soal No 4 Belum Siap
+-- tampilkan mahasiswa yang memiliki jumlah SKS lebih dari 10.
 SELECT kontrak. makul_id,
 mahasiswa. nama_mhs
 FROM kontrak
@@ -112,9 +116,29 @@ INNER JOIN Matakuliah
 ON kontrak.makul_id = mahasiswa.nim
 WHERE sks > 10;
 
+-- //Soal no 5
+-- tampilkan mahasiswa yang mengontrak mata kuliah 'data mining'.
+SELECT kontrak.makul_id,
+Matakuliah.nama_matkul
+FROM kontrak
+INNER JOIN Matakuliah
+ON kontrak.makul_id = Matakuliah.makul_id
+WHERE nama_matkul LIKE 'data mining';
+
+SELECT kontrak. nim,
+mahasiswa. nama_mhs,
+Matakuliah. nama_matkul
+FROM kontrak
+JOIN mahasiswa ON kontrak.nim = mahasiswa.nim
+JOIN Matakuliah ON kontrak.makul_id = Matakuliah.makul_id
+WHERE nama_matkul LIKE 'data mining%';
+
 -- //Soal no 6
+-- tampilkan jumlah mahasiswa untuk setiap dosen
+
 
 
 -- //Soal No 7
+-- urutkan mahasiswa berdasarkan umurnya
 SELECT * FROM mahasiswa
 ORDER BY umur DESC;
