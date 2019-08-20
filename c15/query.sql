@@ -126,13 +126,6 @@ WHERE kontrak.nim = mahasiswa.nim
 AND kontrak.makul_id = Matakuliah.makul_id 
 AND nama_matkul='data mining';
 
-
-SELECT nama_mhs, nama_matkul,
-FROM kontrak,mahasiswa, Matakuliah
-WHERE kontrak.nim = mahasiswa.nim
-ON kontrak.makul_id = Matakuliah.makul_id
-WHERE nama_matkul LIKE 'data mining';
-
 SELECT kontrak. nim,
 mahasiswa. nama_mhs,
 Matakuliah. nama_matkul
@@ -141,13 +134,19 @@ JOIN mahasiswa ON kontrak.nim = mahasiswa.nim
 JOIN Matakuliah ON kontrak.makul_id = Matakuliah.makul_id
 WHERE nama_matkul LIKE 'data mining%';
 
-
 -- //Soal no 6
 -- tampilkan jumlah mahasiswa untuk setiap dosen
-
-
+SELECT nama_dosen,nama_mhs, COUNT (jumlah)
+FROM kontrak, mahasiswa, DOSEN
+WHERE kontrak.NIP = DOSEN.NIP
+AND kontrak.nim = mahasiswa.nim
+GROUP BY nama_dosen;
 
 -- //Soal No 7
 -- urutkan mahasiswa berdasarkan umurnya
 SELECT * FROM mahasiswa
 ORDER BY umur DESC;
+
+-- //SOal No 8
+--  tampilkan kontrak matakuliah yang harus diulang (nilai D dan E), serta tampilkan data mahasiswa jurusan dan dosen secara lengkap
+-- gunakan mode join dan WHERE clause (solusi terdiri dari 2 syntax SQL)
