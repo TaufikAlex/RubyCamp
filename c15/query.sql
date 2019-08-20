@@ -166,7 +166,14 @@ FROM mahasiswa, jurusan, Matakuliah, DOSEN, kontrak
 WHERE kontrak.nim = mahasiswa.nim
 AND kontrak.makul_id = Matakuliah.makul_id
 AND kontrak.NIP = DOSEN.NIP
-GROUP BY nilai BETWEEN 'D' AND 'E';
+GROUP BY nilai >='E';
+-- SOAL NO 8 yang True
+SELECT DISTINCT * 
+FROM kontrak
+JOIN mahasiswa ON kontrak.nim = mahasiswa.nim
+JOIN Matakuliah ON kontrak.makul_id = Matakuliah.makul_id
+JOIN DOSEN ON kontrak.NIP = DOSEN.NIP
+WHERE nilai = 'D' OR nilai = 'E';
 
 SELECT mahasiswa.nim,nama_mhs,
 jurusan.nama_jurusan,
@@ -178,4 +185,4 @@ FROM mahasiswa, kontrak
 WHERE kontrak.nim = mahasiswa.nim
 AND kontrak.makul_id = Matakuliah.makul_id
 AND kontrak.NIP = DOSEN.NIP
-AND nilai BETWEEN 'D' AND 'E';
+GROUP BY nilai BETWEEN 'D' AND 'E';
