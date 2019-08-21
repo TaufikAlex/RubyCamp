@@ -3,7 +3,7 @@ class CarFactory {
     constructor(name, type, total) {
         this.name = name;
         this.type = type;
-        this.total = Math.floor(Math.random() * total);
+        
     }
 }
 
@@ -37,6 +37,23 @@ class Civic extends Cars {
 const Carsvic = new Civic('4 Ban', '2 kursi', '2 pintu', 'Type Exs');
 console.log(Carsvic);
 
+class tyre {
+    constructor(){
+        
+    }
+}
+
+class Warranty {
+    constructor(Name_cars, garansi){
+        this.Name_cars=Name_cars;
+        this.garansi=Math.floor(Math.random()* garansi);
+        
+    }
+}
+const CJazz = new Warranty ('Jazz',5);
+const CCivic = new Warranty ('Civic',5);
+console.log(CJazz);
+console.log(CCivic);
 // console.log(car.Toyota()); // It is a car: Tesla
 // console.log(car.Honda()); // car
 
