@@ -6,7 +6,7 @@ class CarFactory {
     startbuild(){
         let mobilbulanini = [];
         let startBrio = new Brio(4,4);
-        let startPajero = new Pajero(4,8);
+        let startPajero = newFunction();
         let startCivic = new Civic(4,5);
         for(let i =0; i<this.banyakMobil; i++){
             mobilbulanini.push(startBrio.buildBrio());
@@ -90,6 +90,10 @@ pabrik.startbuild();
 
 
 
+
+function newFunction() {
+    return new Pajero(4, 8);
+}
 // class Cars {
 //     constructor(name) {
 
