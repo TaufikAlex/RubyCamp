@@ -26,7 +26,7 @@ class MesinHitung{
         this.x **= Num;
         return this;
     }
-    squareRoot(){111
+    squareRoot(){
         this.x = Math.sqrt(this.x,2);
         return this;
     }
