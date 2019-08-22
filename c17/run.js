@@ -1,3 +1,5 @@
+//https://stackoverflow.com/questions/33448675/babel-6-cli-unexpected-token-export
+// this code inspiration with stackoverflow
 import MesinHitung from './MesinHitung';
 const mh = new MesinHitung();
 const pi = 22/7;
