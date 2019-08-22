@@ -1,9 +1,8 @@
 import MesinHitung from './MesinHitung';
 const mh = new MesinHitung();
-const pi = 3.14;
+const pi = 22/7;
 
-var mh = new Mesinhitung();
-mh.add (10).substract(5).result();//1 + 10 - 5 =6
+mh.add (10).subtract(5).result();//1 + 10 - 5 =6
 mh.add (3).multiply(4).divide(6).result(); // current result is 2 then the mhutate is : 6 + 3 * 4 /6 =6
 mh.x =7; // set jari jari 7
 console.log(`nilai sekarang : ${mh.x}`);

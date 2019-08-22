@@ -23,10 +23,10 @@ class MesinHitung{
         return this;
     }
     exponent(Num){
-        this.x = Num;
+        this.x **= Num;
         return this;
     }
-    squareRoot(){
+    squareRoot(){111
         this.x = Math.sqrt(this.x,2);
         return this;
     }
