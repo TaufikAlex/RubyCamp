@@ -1,3 +1,7 @@
+import MesinHitung from './MesinHitung';
+const mh = new MesinHitung();
+const pi = 3.14;
+
 var mh = new Mesinhitung();
 mh.add (10).substract(5).result();//1 + 10 - 5 =6
 mh.add (3).multiply(4).divide(6).result(); // current result is 2 then the mhutate is : 6 + 3 * 4 /6 =6
@@ -7,4 +11,4 @@ mh.multiply(2).multiply(pi).result();// Keliling lingkaran dengan jari jari 7 =>
 mh.x = 7; // set jari 7
 mh.square().multiply(pi).result(); // luas lingkaran dengan jari jari 7 => pi x r pangkat 2 =154
 mh.x =4;
-mh.exponent(3).result(); // 4 pangkat 3 = 64
+mh.exponent(3).result(); // 4 pangkat 3 =64
