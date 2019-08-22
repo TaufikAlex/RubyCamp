@@ -1,3 +1,6 @@
+// Documentation babel preset-es2015
+//https://www.npmjs.com/package/babel-preset-es2015
+
 //https://stackoverflow.com/questions/33448675/babel-6-cli-unexpected-token-export
 // this code inspiration with stackoverflow
 import MesinHitung from './MesinHitung';
