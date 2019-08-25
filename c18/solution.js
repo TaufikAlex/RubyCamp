@@ -329,14 +329,14 @@ function listMahasiswa() {
                 head: ['NIM', 'NAMA', 'ALAMAT', 'Nama Jurusan'],
                 colWidths: [10, 20, 20, 25]
             });
-            row.forEach( (mahasiswa,jurusan) =>{
+            row.forEach((mahasiswa, jurusan) => {
                 table.push(
-                    [`${mahasiswa.nim}`,`${mahasiswa.nama_mhs}`,`${mahasiswa.alamat}`,`${mahasiswa.nama_jurusan}`]
+                    [`${mahasiswa.nim}`, `${mahasiswa.nama_mhs}`, `${mahasiswa.alamat}`, `${mahasiswa.nama_jurusan}`]
                 );
             });
             console.log(table.toString());
             menu_mahasiswa();
-        }else{
+        } else {
             Console.log("tidak ditemukan mahasiswa");
             menu_mahasiswa();
         }
@@ -354,14 +354,14 @@ function listJurusan() {
                 head: ['Jurusan ID', 'NAMA JURUSAN'],
                 colWidths: [10, 25]
             });
-            row.forEach( (jurusan) =>{
+            row.forEach((jurusan) => {
                 table.push(
-                    [`${jurusan.jurusan_id}`,`${jurusan.nama_jurusan}`]
+                    [`${jurusan.jurusan_id}`, `${jurusan.nama_jurusan}`]
                 );
             });
             console.log(table.toString());
             menu_jurusan();
-        }else{
+        } else {
             Console.log("tidak ditemukan jurusan");
             menu_jurusan();
         }
@@ -379,21 +379,21 @@ function listDosen() {
                 head: ['NIP DOSEN', 'NAMA DOSEN'],
                 colWidths: [10, 25]
             });
-            row.forEach( (DOSEN) =>{
+            row.forEach((DOSEN) => {
                 table.push(
-                    [`${DOSEN.NIP}`,`${DOSEN.nama_dosen}`]
+                    [`${DOSEN.NIP}`, `${DOSEN.nama_dosen}`]
                 );
             });
             console.log(table.toString());
             menu_dosen();
-        }else{
+        } else {
             Console.log("tidak ditemukan DOSEN");
             menu_dosen();
         }
     })
 }
 
-// 4
+
 //---------List Matakuliah----------\\
 function listmatkul() {
     const sql = `SELECT * FROM Matakuliah`
@@ -402,23 +402,24 @@ function listmatkul() {
         if (row) {
             const table = new Table({
 
-                head: ['MATAKULIAH ID', 'NAMA MATKUL','SKS'],
-                colWidths: [10, 25,10]
+                head: ['MATAKULIAH ID', 'NAMA MATKUL', 'SKS'],
+                colWidths: [10, 25, 10]
             });
-            row.forEach( (Matakuliah) =>{
+            row.forEach((Matakuliah) => {
                 table.push(
-                    [`${Matakuliah.makul_id}`,`${Matakuliah.nama_matkul}`,`${Matakuliah.SKS}`]
+                    [`${Matakuliah.makul_id}`, `${Matakuliah.nama_matkul}`, `${Matakuliah.SKS}`]
                 );
             });
             console.log(table.toString());
             menu_matakuliah();
-        }else{
+        } else {
             Console.log("tidak ditemukan jurusan");
             menu_matakuliah();
         }
     })
 }
 
+//5
 //---------List Kontrak----------\\
 function listkontrak() {
     const sql = `SELECT * FROM kontrak`
@@ -427,17 +428,17 @@ function listkontrak() {
         if (row) {
             const table = new Table({
 
-                head: ['KONTRAK ID', 'NIM','NIP', 'MAKUL_ID', 'NILAI'],
-                colWidths: [10, 25,10,15,10,10]
+                head: ['KONTRAK ID', 'NIM', 'NIP', 'MAKUL_ID', 'NILAI'],
+                colWidths: [10, 25, 10, 15, 10]
             });
-            row.forEach( (kontrak) =>{
+            row.forEach((kontrak) => {
                 table.push(
-                    [`${kontrak.kontrak_id}`,`${kontrak.nim}`,`${kontrak.NIP}`,`${kontrak.makul_id}`,`${kontrak.nilai}`]
+                    [`${kontrak.kontrak_id}`, `${kontrak.nim}`, `${kontrak.NIP}`, `${kontrak.makul_id}`, `${kontrak.nilai}`]
                 );
- });
+            });
             console.log(table.toString());
             menu_kontrak();
-        }else{
+        } else {
             Console.log("tidak ditemukan jurusan");
             menu_kontrak();
         }
@@ -446,7 +447,135 @@ function listkontrak() {
 
 //-----------------------END LIST FUNCTION---------------\\
 
-//-----------------------CARI FUNCTION---------------------\\
+//----------------------SEARCH FUNCTION-----------------\\
+
+
+
+
+//----------------------END SEARCH FUNCTION-----------------\\
+
+//-----------------------ADD FUNCTION---------------------\\
+//---------ADD MAHASISWA---------\\
+function addMahasiswa() {
+    console.log('Lengkapi data di bawah ini ');
+    rl.question("Masukan NIM:", (nim) => {
+        rl.question("Nama Mahasiswa:", (nama_mhs) => {
+            rl.question("Umur:", (umur) => {
+                rl.question("jurusan:", (jurusan) => {
+                    rl.question("alamat:", (alamat) => {
+                        const sql = `INSERT INTO mahasiswa (nim, nama_mhs, umur, jurusan_id, alamat)VALUES (?,?,?,?,?)`;
+                        id_nim = nim;
+                        id_nama = nama_mhs;
+                        id_umur = umur;
+                        id_jurusan = jurusan;
+                        id_alamat = alamat;
+                        db.all(sql, [id_nim, id_nama, id_umur, id_jurusan, id_alamat], (err) => {
+                            if (err) throw err;
+                            console.log('succes menambahkan mahasiswa');
+                            listMahasiswa();
+                        })
+
+                    })
+                })
+            })
+        })
+    })
+}
+
+//---------ADD JURUSAN---------\\
+function addJurusan() {
+    console.log('Lengkapi data di bawah ini ');
+    rl.question("Masukan ID Jurusan Baru:", (jurusan_id) => {
+        rl.question("Nama Jurusan:", (nama_jurusan) => {
+            const sql = `INSERT INTO jurusan (jurusan_id, nama_jurusan)VALUES (?,?)`;
+            id_jurusan = jurusan_id;
+            id_nama_jurusan = nama_jurusan;
+
+            db.all(sql, [id_jurusan, id_nama_jurusan], (err) => {
+                if (err) throw err;
+                console.log('succes menambahkan Jurusan');
+                listJurusan();
+            })
+
+        })
+    })
+}
+
+//---------ADD DOSEN---------\\
+function addDosen() {
+    console.log('Lengkapi data di bawah ini ');
+    rl.question("Masukan NIP DOSEN Baru:", (dosen_id) => {
+        rl.question("Nama DOSEN", (nama_dosen) => {
+            const sql = `INSERT INTO DOSEN (NIP, nama_dosen)VALUES (?,?)`;
+            id_dosen = dosen_id;
+            id_nama_dosen = nama_dosen;
+
+            db.all(sql, [id_dosen, id_nama_dosen], (err) => {
+                if (err) throw err;
+                console.log('succes menambahkan DOSEN');
+                listDosen();
+            })
+
+        })
+    })
+}
+//4
+//---------ADD Matakuliah---------\\
+function addmatkul() {
+    console.log('Lengkapi data di bawah ini ');
+    rl.question("Masukan Matakuliah id:", (makul_id) => {
+        rl.question("Nama Matakuiah:", (nama_matkul) => {
+            rl.question("Jumlah SKS:", (Jumlah_sks) => {
+
+                const sql = `INSERT INTO Matakuliah(makul_id, nama_matkul, SKS)VALUES (?,?,?)`;
+                id_makul = makul_id;
+                id_nama_matkul = nama_matkul;
+                id_sks = Jumlah_sks;
+
+                db.all(sql, [id_dosen, id_nama_dosen, id_sks], (err) => {
+                    if (err) throw err;
+                    console.log('succes menambahkan Matakuliah');
+                    listmatkul();
+                })
+            })
+
+        })
+    })
+}
+
+
+//---------ADD Kontrak---------\\
+function addkontrak() {
+    console.log('Lengkapi data di bawah ini ');
+    rl.question("Masukan NIM:", (nim) => {
+        rl.question("Masukan NIP:", (NIP) => {
+            rl.question("Masukan ID Matakuliah:", (makul_id) => {
+                rl.question("Masukan Nilai:", (nilai) => {
+                    rl.question("Masukan Jumlah =1:", (jumlah) => {
+
+                        const sql = `INSERT INTO kontrak (nim, NIP, makul_id, nilai,jumlah)VALUES (?,?,?,?,?)`;
+                        id_nim = nim;
+                        id_NIP = NIP;
+                        id_makul = makul_id;
+                        id_nilai = nilai;
+                        id_jumlah =jumlah;
+
+
+                        db.all(sql, [id_nim, id_NIP, id_makul, id_nilai,id_jumlah], (err) => {
+                            if (err) throw err;
+                            console.log('succes menambahkan kontrak');
+                            listkontrak();
+                        })
+
+
+                    })
+                })
+            })
+        })
+    })
+}
+
+//-----------------------END FUNCTION-------------------\\
 
 //----------------------------DELETE FUNCTION-----------------\\
 //---DELETE MAHASISWA--\\

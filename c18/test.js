@@ -29,7 +29,7 @@ function loginMenu() {
         rl.question("password: ", (passwords) => {
             console.log("==========================================================");
             db.serialize( () => {
-                let sql = `SELECT * FROM user WHERE user.username="${username}" AND user.pass = "${passwords}"`;
+                let sql = `SELECT * FROM user WHERE user.username="${username}" AND user.passwords = "${passwords}"`;
                 db.get(sql, (err, rows) => {
                     if (err) throw err;
                     if (rows) {
