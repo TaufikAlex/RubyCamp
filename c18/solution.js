@@ -122,7 +122,7 @@ function menu_mahasiswa() {
                 break;
             default:
                 console.log("Tidak ada pilihan");
-                menuMahasiswa();
+                menu_mahasiswa();
                 break;
         }
     })
@@ -151,7 +151,7 @@ function menu_jurusan() {
                 break;
             default:
                 console.log("Tidak ada pilihan");
-                menuJurusan();
+                menu_jurusan();
                 break;
         }
     })
@@ -180,7 +180,7 @@ function menu_dosen() {
                 break;
             default:
                 console.log("Tidak ada pilihan");
-                menuDosen();
+                menu_dosen();
                 break;
         }
     })
@@ -256,7 +256,7 @@ silahkan pilih opsi dibawah ini MENU UTAMA
 [4] Matakuliah
 [5] Kontrak
 [6] Keluar
-===================================================================================================
+=====================================================================================
 `;
 
 // menu mahasiswa
@@ -267,7 +267,7 @@ silahkan pilih opsi dibawah ini MENU MAHASISWA
 [3] tambah murid
 [4] hapus murid
 [5] kembali
-===================================================================================================
+=====================================================================================
 `;
 
 // menu jurusan
@@ -278,7 +278,7 @@ silahkan pilih opsi dibawah ini MENU JURUSAN
 [3] tambah jurusan
 [4] hapus jurusan
 [5] kembali
-===================================================================================================
+=====================================================================================
 `;
 
 // menu dosen
@@ -289,7 +289,7 @@ silahkan pilih opsi dibawah ini MENU DOSEN
 [3] tambah dosen
 [4] hapus dosen
 [5] kembali
-====================================================================================================
+======================================================================================
 `;
 //Menu Matakuliah
 const pilihanMatakuliah = `==========================================================================
@@ -299,7 +299,7 @@ silahkan pilih opsi dibawah ini MENU MATA KULIAH
 [3] tambah mata kuliah
 [4] hapus mata kuliah
 [5] kembali
-===================================================================================================
+=====================================================================================
 `;
 //Menu kontrak
 const pilihanKontrak = `===========================================================================
@@ -309,7 +309,7 @@ silahkan pilih opsi dibawah ini MENU KONTRAK
 [3] tambah kontrak
 [4] hapus kontrak
 [5] kembali
-===================================================================================================
+=====================================================================================
 `;
 //-------------------------------------------END MENU DISPLAY PILIHAN----------------------------------\\
 
@@ -449,7 +449,112 @@ function listkontrak() {
 
 //----------------------SEARCH FUNCTION-----------------\\
 
+//Search Mahasiswa\\
+function SeacrhMahasiswa() {
+    console.log('=======================================================');
+    rl.question("Masukan Nim:", (nim) => {
+        const sql = `SELECT * FROM mahasiswa WHERE nim=?`;
+        db.get(sql, [nim], (err, mahasiswa) => {
+            if (err) throw err;
 
+            if (mahasiswa) {
+                console.log('NIM        : ', `${mahasiswa.nim}`);
+                console.log('nama       : ', `${mahasiswa.nama_mhs}`);
+                console.log('alamat     : ', `${mahasiswa.alamat}`);
+                console.log('jurusan    : ', `${mahasiswa.jurusan_id}`);
+
+            }
+            else
+                console.log("NIM tidak terdaftar!");
+            menu_mahasiswa();
+        })
+    })
+}
+
+//Search Jurusan\\
+function SeacrhJurusan() {
+    console.log('=======================================================');
+    rl.question("Masukan ID Jurusan:", (jur) => {
+        const sql = `SELECT * FROM jurusan WHERE jurusan_id=?`;
+        db.get(sql, [jur], (err, jurusan) => {
+            if (err) throw err;
+
+            if (jurusan) {
+                console.log('Jurusan ID        : ', `${jurusan.jurusan_id}`);
+                console.log('nama Jurusan       : ', `${jurusan.nama_jurusan}`);
+                
+
+            }
+            else
+                console.log("Jurusan tidak terdaftar!");
+            menu_jurusan();
+        })
+    })
+}
+
+//Search Dosen\\
+function SeacrhDosen() {
+    console.log('=======================================================');
+    rl.question("Masukan NIP:", (Dos) => {
+        const sql = `SELECT * FROM DOSEN WHERE NIP=?`;
+        db.get(sql, [Dos], (err, DOSEN) => {
+            if (err) throw err;
+
+            if (DOSEN) {
+                console.log('NIP              : ', `${DOSEN.NIP}`);
+                console.log('nama DOSEN       : ', `${DOSEN.nama_dosen}`);                
+
+            }
+            else
+                console.log("DOSEN tidak terdaftar!");
+            menu_dosen();
+        })
+    })
+}
+
+//Search Matakuliah\\
+function Seacrhmatkul() {
+    console.log('=======================================================');
+    rl.question("Masukan NIP:", (matkul) => {
+        const sql = `SELECT * FROM Matakuliah WHERE makul_id=?`;
+        db.get(sql, [matkul], (err, Matakuiah) => {
+            if (err) throw err;
+
+            if (Matakuiah) {
+                console.log('Matakuliah ID              : ', `${Matakuiah.makul_id}`);
+                console.log('Nama Matakuliah            : ', `${Matakuiah.nama_matkul}`);
+                console.log('Jumlah SKS                 : ', `${Matakuiah.SKS}`);                
+
+            }
+            else
+                console.log("Matakuliah  tidak terdaftar!");
+            menu_matakuliah();
+        })
+    })
+}
+
+//Search kontrka\\
+function Seacrhkontrak() {
+    console.log('=======================================================');
+    rl.question("Masukan ID Kontrak :", (contract) => {
+        const sql = `SELECT * FROM kontrak WHERE kontrak_id=?`;
+        db.get(sql, [contract], (err, kontrak) => {
+            if (err) throw err;
+
+            if (kontrak) {
+                console.log('Kontrak ID              : ', `${kontrak.kontrak_id}`);
+                console.log('NIM MAHASISWA           : ', `${kontrak.nim}`);
+                console.log('NIP DOSEN               : ', `${kontrak.NIP}`);
+                console.log('Matakuliah ID           : ', `${kontrak.makul_id}`);      
+                console.log('NILAI Mahasiswa         : ', `${kontrak.nilai}`);                      
+
+            }
+            else
+                console.log("Kontrak  tidak terdaftar!");
+            menu_kontrak();
+        })
+    })
+}
 
 
 //----------------------END SEARCH FUNCTION-----------------\\
@@ -558,10 +663,10 @@ function addkontrak() {
                         id_NIP = NIP;
                         id_makul = makul_id;
                         id_nilai = nilai;
-                        id_jumlah =jumlah;
+                        id_jumlah = jumlah;
 
 
-                        db.all(sql, [id_nim, id_NIP, id_makul, id_nilai,id_jumlah], (err) => {
+                        db.all(sql, [id_nim, id_NIP, id_makul, id_nilai, id_jumlah], (err) => {
                             if (err) throw err;
                             console.log('succes menambahkan kontrak');
                             listkontrak();
