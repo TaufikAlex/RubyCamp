@@ -61,7 +61,7 @@ const login = () => {
 }
 //--LOGIN--\\
 //--LOGOUT--\\
-function logout(){
+function logout() {
     console.log("Anda telah keluar.");
     login();
 }
@@ -104,7 +104,7 @@ function menuutama() {
 function menu_mahasiswa() {
     console.log(pilihanMahasiswa);
     rl.question("Masukan salah satu no. opsi di atas:", (Number) => {
-        switch(Number){
+        switch (Number) {
             case "1":
                 listMahasiswa();
                 break;
@@ -130,10 +130,10 @@ function menu_mahasiswa() {
 //---END MENU Mahasiswa---\\
 
 //----------MENU JURUSAN------------\\
-function menu_jurusan(){
+function menu_jurusan() {
     console.log(pilihanJurusan);
-    rl.question("Masukan salah satu no. opsi di atas:",(Number)=>{
-        switch(Number){
+    rl.question("Masukan salah satu no. opsi di atas:", (Number) => {
+        switch (Number) {
             case "1":
                 listJurusan();
                 break;
@@ -159,10 +159,10 @@ function menu_jurusan(){
 //---END MENU Jurusan---\\
 
 //----------MENU DOSEN------------\\
-function menu_dosen(){
+function menu_dosen() {
     console.log(pilihanDosen);
-    rl.question("Masukan salah satu no. opsi di atas:",(Number)=>{
-        switch(Number){
+    rl.question("Masukan salah satu no. opsi di atas:", (Number) => {
+        switch (Number) {
             case "1":
                 listDosen();
                 break;
@@ -188,10 +188,10 @@ function menu_dosen(){
 //---END MENU DOSEN---\\
 
 //----------MENU MATAKULIAH------------\\
-function menu_matakuliah(){
+function menu_matakuliah() {
     console.log(pilihanMatakuliah);
-    rl.question("Masukan salah satu no. opsi di atas:",(Number)=>{
-        switch(Number){
+    rl.question("Masukan salah satu no. opsi di atas:", (Number) => {
+        switch (Number) {
             case "1":
                 listmatkul();
                 break;
@@ -217,10 +217,10 @@ function menu_matakuliah(){
 //---END MENU MATAKULIAH--\\
 
 //----------MENU kontrak------------\\
-function menu_kontrak(){
+function menu_kontrak() {
     console.log(pilihanKontrak);
-    rl.question("Masukan salah satu no. opsi di atas:",(Number)=>{
-        switch(Number){
+    rl.question("Masukan salah satu no. opsi di atas:", (Number) => {
+        switch (Number) {
             case "1":
                 listkontrak();
                 break;
@@ -312,6 +312,214 @@ silahkan pilih opsi dibawah ini MENU KONTRAK
 ===================================================================================================
 `;
 //-------------------------------------------END MENU DISPLAY PILIHAN----------------------------------\\
+
+//-----------------------------------LIST  FUNCTION ---------------------------\\
+//---------List Mahasiswa----------\\
+function listMahasiswa() {
+    const sql = `SELECT mahasiswa.*,
+    jurusan.nama_jurusan
+    FROM mahasiswa
+    INNER JOIN jurusan
+    ON jurusan.jurusan_id = mahasiswa.jurusan_id`
+    db.all(sql, (err, row) => {
+        if (err) throw err;
+        if (row) {
+            const table = new Table({
+
+                head: ['NIM', 'NAMA', 'ALAMAT', 'Nama Jurusan'],
+                colWidths: [10, 20, 20, 25]
+            });
+            row.forEach( (mahasiswa,jurusan) =>{
+                table.push(
+                    [`${mahasiswa.nim}`,`${mahasiswa.nama_mhs}`,`${mahasiswa.alamat}`,`${mahasiswa.nama_jurusan}`]
+                );
+            });
+            console.log(table.toString());
+            menu_mahasiswa();
+        }else{
+            Console.log("tidak ditemukan mahasiswa");
+            menu_mahasiswa();
+        }
+    })
+}
+
+//---------List Jurusan----------\\
+function listJurusan() {
+    const sql = `SELECT * FROM jurusan`
+    db.all(sql, (err, row) => {
+        if (err) throw err;
+        if (row) {
+            const table = new Table({
+
+                head: ['Jurusan ID', 'NAMA JURUSAN'],
+                colWidths: [10, 25]
+            });
+            row.forEach( (jurusan) =>{
+                table.push(
+                    [`${jurusan.jurusan_id}`,`${jurusan.nama_jurusan}`]
+                );
+            });
+            console.log(table.toString());
+            menu_jurusan();
+        }else{
+            Console.log("tidak ditemukan jurusan");
+            menu_jurusan();
+        }
+    })
+}
+
+//---------List DOSEN----------\\
+function listDosen() {
+    const sql = `SELECT * FROM DOSEN`
+    db.all(sql, (err, row) => {
+        if (err) throw err;
+        if (row) {
+            const table = new Table({
+
+                head: ['NIP DOSEN', 'NAMA DOSEN'],
+                colWidths: [10, 25]
+            });
+            row.forEach( (DOSEN) =>{
+                table.push(
+                    [`${DOSEN.NIP}`,`${DOSEN.nama_dosen}`]
+                );
+            });
+            console.log(table.toString());
+            menu_dosen();
+        }else{
+            Console.log("tidak ditemukan DOSEN");
+            menu_dosen();
+        }
+    })
+}
+
+// 4
+//---------List Matakuliah----------\\
+function listmatkul() {
+    const sql = `SELECT * FROM Matakuliah`
+    db.all(sql, (err, row) => {
+        if (err) throw err;
+        if (row) {
+            const table = new Table({
+
+                head: ['MATAKULIAH ID', 'NAMA MATKUL','SKS'],
+                colWidths: [10, 25,10]
+            });
+            row.forEach( (Matakuliah) =>{
+                table.push(
+                    [`${Matakuliah.makul_id}`,`${Matakuliah.nama_matkul}`,`${Matakuliah.SKS}`]
+                );
+            });
+            console.log(table.toString());
+            menu_matakuliah();
+        }else{
+            Console.log("tidak ditemukan jurusan");
+            menu_matakuliah();
+        }
+    })
+}
+
+//---------List Kontrak----------\\
+function listkontrak() {
+    const sql = `SELECT * FROM kontrak`
+    db.all(sql, (err, row) => {
+        if (err) throw err;
+        if (row) {
+            const table = new Table({
+
+                head: ['KONTRAK ID', 'NIM','NIP', 'MAKUL_ID', 'NILAI'],
+                colWidths: [10, 25,10,15,10,10]
+            });
+            row.forEach( (kontrak) =>{
+                table.push(
+                    [`${kontrak.kontrak_id}`,`${kontrak.nim}`,`${kontrak.NIP}`,`${kontrak.makul_id}`,`${kontrak.nilai}`]
+                );
+ });
+            console.log(table.toString());
+            menu_kontrak();
+        }else{
+            Console.log("tidak ditemukan jurusan");
+            menu_kontrak();
+        }
+    })
+}
+
+//-----------------------END LIST FUNCTION---------------\\
+
+//-----------------------CARI FUNCTION---------------------\\
+
+//----------------------------DELETE FUNCTION-----------------\\
+//---DELETE MAHASISWA--\\
+function DeleteMahasiswa() {
+
+    const sql = `DELETE FROM mahasiswa WHERE nim=?`;
+    rl.question("Masukan NIM mahasiswa yang akan dihapus:", nim => {
+        identitasmhs = nim;
+        db.run(sql, [identitasmhs], (err, row) => {
+            if (err) throw err;
+            console.log('susccess deleted')
+            menu_mahasiswa();
+        })
+    })
+}
+
+//---DELETE JURUSAN--\\
+function DeleteJurusan() {
+
+    const sql = `DELETE FROM jurusan WHERE jurusan_id=?`;
+    rl.question("Masukan ID Jurusan mahasiswa yang akan dihapus:", jurusan_id => {
+        id_jurusan = jurusan_id;
+        db.run(sql, [id_jurusan], (err, row) => {
+            if (err) throw err;
+            console.log('susccess deleted')
+            menu_jurusan();
+        })
+    })
+}
+
+//---DELETE Matakuliah--\\
+function Deletematkul() {
+
+    const sql = `DELETE FROM Matakuliah WHERE makul_id=?`;
+    rl.question("Masukan ID Matakuliah yang akan dihapus:", makul_id => {
+        id_makul = makul_id;
+        db.run(sql, [id_jurusan], (err, row) => {
+            if (err) throw err;
+            console.log('susccess deleted')
+            menu_matakuliah();
+        })
+    })
+}
+
+//---DELETE Dosen--\\
+function DeleteDosen() {
+
+    const sql = `DELETE FROM DOSEN WHERE NIP=?`;
+    rl.question("Masukan NIP yang akan dihapus:", NIP => {
+        id_Dosen = NIP;
+        db.run(sql, [id_Dosen], (err, row) => {
+            if (err) throw err;
+            console.log('susccess deleted')
+            menu_dosen();
+        })
+    })
+}
+
+//---DELETE kontrak--\\
+function Deletekontrak() {
+
+    const sql = `DELETE FROM kontrak WHERE kontrak_id=?`;
+    rl.question("Masukan ID Matakuliah yang akan dihapus:", kontrak_id => {
+        id_kontrak = kontrak_id;
+        db.run(sql, [id_kontrak], (err, row) => {
+            if (err) throw err;
+            console.log('susccess deleted')
+            menu_kontrak();
+        })
+    })
+}
+
+//-------------------------------END DELETED--------------------------\\
 
 
 
