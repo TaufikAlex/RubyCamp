@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Belajar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <h1>WELCOME</h1>
+    <table class="table table-striped table-dark" border="1">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Umur</th>
+            <th scope="col">Integer</th>
+            <th scope="col">Float</th>
+            <th scope="col">Date</th>
+            <th scope="col">Boolean</th>
+            <th scope="col">Actions</th>
+        </tr>
+        <% data.forEach((item,list)=>{ %>
+        <tr>
+            <td><%= item.Id %></td>
+            <td><%= item.String %></td>
+            <td><%= item.Integer %></td>
+            <td><%= item.Float %></td>
+            <td><%= item.Date %></td>
+            <td><%= item.Boolean %></td>
+            <td><a class="btn btn-success" href="edit/<%= list %>">Edit</a>
+                <a class="btn btn-danger" href="deleted/<%= list %>">Delete</a>
+            </td>
+        </tr>
+        <% }); %>
+    </table>
+
+    <a class="btn btn-primary" href="/add">ADD</a>
+</body>
+</html> 
