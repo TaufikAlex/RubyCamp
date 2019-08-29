@@ -29,6 +29,7 @@ app.use(bodyParser.json())
 app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'ejs')
 
+//-------------LIST----------\\
 
 app.get('/', (req, res) => {
     db.all(`SELECT * FROM inputan`, (err, row) => {
@@ -36,6 +37,10 @@ app.get('/', (req, res) => {
 
         res.render('list', { data: row })
     })
+})
+
+app.get('/', (req, res) => {
+    
 })
 
 
@@ -69,7 +74,7 @@ app.get('/edit/:id', (req, res) => {
         
         
         
-        res.render('edit',{data:{...row[0]}})
+        res.render('edit',{data:{...row[0]}})//... membuat memori baru
     })
 })
 app.post('/edit/:id', (req, res) => {
