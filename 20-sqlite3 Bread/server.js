@@ -39,10 +39,21 @@ app.get('/', (req, res) => {
     })
 })
 
-app.get('/', (req, res) => {
-    
-})
+app.get('/page', (req, res) => {
+    const pageCount = Math.ceil(posts.length / 2);
+    let page = parseInt(req.query.p);
+    if (!page) { page = 1;}
+    if (page > pageCount) {
+      page = pageCount
+    }
+    res.render('list',{data:row})
 
+    // res.json({
+    //   "page": page,
+    //   "pageCount": pageCount,
+    //   "posts": posts.slice(page * 2 - 2, page * 2)
+    // });
+  })
 
 //---------ADD-----------\\
 app.get('/add', (req, res) => res.render('add'))
@@ -65,16 +76,14 @@ app.get('/edit/:id', (req, res) => {
     let sqlgetedit = `SELECT * FROM inputan WHERE id=?`;
     // let edit = req.params;
     console.log(edit);
-    
 
-    db.all(sqlgetedit, edit,(err,row) =>{
-        if(err) throw err;
+
+    db.all(sqlgetedit, edit, (err, row) => {
+        if (err) throw err;
         // console.log(row[0])
         console.log('suksess edit');
-        
-        
-        
-        res.render('edit',{data:{...row[0]}})//... membuat memori baru
+
+        res.render('edit', { data: { ...row[0] } })//... membuat memori baru
     })
 })
 app.post('/edit/:id', (req, res) => {
@@ -82,14 +91,12 @@ app.post('/edit/:id', (req, res) => {
     let sqlpostedit = `UPDATE inputan 
     SET dataString =?, dataInteger=?, dataFloat =?, dataDate=?, dataBoolean=? WHERE id=? `
 
-    db.run(sqlpostedit,[req.body.dataString, req.body.dataInteger, req.body.dataFloat, req.body.dataDate, req.body.dataBoolean,edit],(err,row) =>{
+    db.run(sqlpostedit, [req.body.dataString, req.body.dataInteger, req.body.dataFloat, req.body.dataDate, req.body.dataBoolean, edit], (err, row) => {
         if (err) throw err;
 
         res.redirect('/');
     })
-    
-    
-    
+
 })
 
 
@@ -107,6 +114,8 @@ app.get('/deleted/:id', (req, res) => {
     res.redirect('/');
 
 })
+
+
 
 
 app.listen(3000, () => {

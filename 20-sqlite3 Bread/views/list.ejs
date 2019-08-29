@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <h1>WELCOME1</h1>
+    <h1>BREAD</h1>
         <div class="container" class="col-sm-12">
     <form>
 
@@ -66,10 +66,10 @@
     <div class="col-sm-10">
         <div class="form-group">
             <input type="date" class="form-control" id="Date" name="Date"
-            placeholder="Date" />
+            placeholder="START DATE" />
             TO
-            <input type="" class="form-control" id="Date" name="Date"
-            placeholder="Date" />
+            <input type="date" class="form-control" id="Date" name="Date"
+            placeholder="END DATE" />
         </div>
     </div>
 
@@ -81,13 +81,15 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-10">
-        <div class="form">
-            <select id_type="month" name="boolean">
+    <div class="form-group row">    
+            <!-- <label for="colFormLabelSm" class="col-sm-1 col-form-label">Boolean</label> -->
+            <div class="col-sm-10">                    
+                <select class="form-control" id_type="exampleFormControlSelect1" name="dataBoolean">
                 <option value="">--pilih type--</option>
                 <option value="true">true</option>
                 <option value="false">false</option>
-            </select>
+                </select>
+            </div>    
         </div>
     </div>
     
@@ -122,5 +124,24 @@
 
     <a class="btn btn-primary" href="/add">ADD</a>
     
+    <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="/page">1</a></li>
+              <li class="page-item"><a class="page-link" href="/page">2</a></li>
+              <li class="page-item"><a class="page-link" href="/page">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
 </body>
 </html> 
