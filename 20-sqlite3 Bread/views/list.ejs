@@ -14,7 +14,7 @@
     <h1>BREAD (Browse, Read, Edit, Add, Delete)</h1>
     <h2>Filters</h2>
     <form action="/" method="GET">       
-      <!-- <input type="hidden" name="id" value="1" />  -->
+      <input type="hidden" name="page" value="1" /> 
       <!---------Menampilkan box id------->
     <div class="row">
         <div class="col-sm-2">
@@ -124,53 +124,53 @@
                 </select>
             </div>    
         </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+        <table class="table table-striped table-dark" border="1">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Umur</th>
+                <th scope="col">Integer</th>
+                <th scope="col">Float</th>
+                <th scope="col">Date</th>
+                <th scope="col">Boolean</th>
+                <th scope="col">Actions</th>
+            </tr>
+            <% data.forEach((data)=>{ %>
+              <tr>
+                  <td><%= data.id %></td>
+                  <td><%= data.dataString %></td>
+                  <td><%= data.dataInteger %></td>
+                  <td><%= data.dataFloat %></td>
+                  <td><%= data.dataDate %></td>
+                  <td><%= data.dataBoolean %></td>
+                  <td><a class="btn btn-success" href="edit/<%= data.id %>">Edit</a>
+                      <a class="btn btn-danger" href="deleted/<%= data.id %>">Delete</a>
+                  </td>
+              </tr>
+            <% }) %>
+            
+        </table>
+        <a class="btn btn-primary" href="/add">ADD</a>
+        
+        <nav aria-label="Page navigation example" style="margin-top:1%">
+            <ul class="pagination" class="pagination justify-content-center">
+                <li class="page-item <%= current == 1 ? 'disabled' : ''%>"><a class="page-link"
+                        href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) - 1}`) %>">Previous</a>
+                </li>
+                <% for(let i = 1; i <= pages; i++){ %>
+                <li class="page-item <%= current == i ? 'active' : '' %>"><a class="page-link"
+                        href="<%= query.replace(`page=${current}`, `page=${i}`) %>"><%= i %></a></li>
+                <% } %>
+                <li class="page-item <%= current == pages ? 'disabled' : ''%>"><a class="page-link"
+                        href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) + 1}`) %>">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
     
-    <button type="submit" class="btn btn-primary">Search</button>
 </div>
 
 </form>
-    <table class="table table-striped table-dark" border="1">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Umur</th>
-            <th scope="col">Integer</th>
-            <th scope="col">Float</th>
-            <th scope="col">Date</th>
-            <th scope="col">Boolean</th>
-            <th scope="col">Actions</th>
-        </tr>
-        <% data.forEach((data)=>{ %>
-          <tr>
-              <td><%= data.id %></td>
-              <td><%= data.dataString %></td>
-              <td><%= data.dataInteger %></td>
-              <td><%= data.dataFloat %></td>
-              <td><%= data.dataDate %></td>
-              <td><%= data.dataBoolean %></td>
-              <td><a class="btn btn-success" href="edit/<%= data.id %>">Edit</a>
-                  <a class="btn btn-danger" href="deleted/<%= data.id %>">Delete</a>
-              </td>
-          </tr>
-        <% }) %>
-        
-    </table>
 
-    <a class="btn btn-primary" href="/add">ADD</a>
-    
-    <nav aria-label="Page navigation example" style="margin-top:1%">
-        <ul class="pagination">
-            <li class="page-item <%= current == 1 ? 'disabled' : ''%>"><a class="page-link"
-                    href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) - 1}`) %>">Previous</a>
-            </li>
-            <% for(let i = 1; i <= pages; i++){ %>
-            <li class="page-item <%= current == i ? 'active' : '' %>"><a class="page-link"
-                    href="<%= query.replace(`page=${current}`, `page=${i}`) %>"><%= i %></a></li>
-            <% } %>
-            <li class="page-item <%= current == pages ? 'disabled' : ''%>"><a class="page-link"
-                    href="<%= query.replace(`page=${parseInt(current)}`, `page=${parseInt(current) + 1}`) %>">Next</a>
-            </li>
-        </ul>
-    </nav>
 </body>
 </html> 
