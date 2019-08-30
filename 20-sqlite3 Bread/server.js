@@ -12,15 +12,9 @@ let db = new sqlite3.Database('bread.db', err => {
     console.log("koneksi ke database berhasil!");
 })
 
-// const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-// });
-
 //------BODY PARSER-----------\\
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyParser.json())
 //----------END BP----------\\
@@ -32,28 +26,86 @@ app.set('view engine', 'ejs')
 //-------------LIST----------\\
 
 app.get('/', (req, res) => {
-    db.all(`SELECT * FROM inputan`, (err, row) => {
-        console.log(row);
 
-        res.render('list', { data: row })
-    })
-})
-
-app.get('/page', (req, res) => {
-    const pageCount = Math.ceil(posts.length / 2);
-    let page = parseInt(req.query.p);
-    if (!page) { page = 1;}
-    if (page > pageCount) {
-      page = pageCount
+    
+    const { ck1, ck2, ck3, ck4, ck5, ck6, nmid, nmstring, nminteger, nmfloat, nmdatestart, nmdateend,
+         nmboolean } = req.query;
+    
+    // data untuk menampung filter
+    let temp = []
+    
+    let stat = false
+    
+    // ---------------------------- function filter ----------------------------
+    if (ck1 && nmid) {
+        temp.push(`id = ${nmid}`)
+        stat = true
     }
-    res.render('list',{data:row})
+    
+    if (ck2 && nmstring) {
+        temp.push(`dataString = '${nmstring}'`)
+        stat = true
+    }
+    
+    if (ck3 && nminteger) {
+        temp.push(`dataInteger = ${nminteger}`)
+        stat = true
+    }
+    
+    if (ck4 && nmfloat) {
+        temp.push(`dataFloat = ${nmfloat}`)
+        stat = true
+    }
+    
+    if (ck5 && nmdatestart && nmdateend) {
+        temp.push(`dataDate BETWEEN '${nmdatestart}' and '${nmdateend}'`)
+        stat = true
+    }
+    
+    if (ck6 && nmboolean) {
+        temp.push(`dataBoolean = '${nmboolean}'`)
+        stat = true
+    }
+    //------------------------------------------------------------------------------------ 
+     // conversi dari array ke string
+     let joindata = temp.join(' and ');
+     
+     console.log(joindata);
+     
+     let sql = "SELECT count(*) as total FROM inputan";
+    //  kondisi ketika filter
+     if (stat == true) {
+         sql += ` where ${joindata} `
+        }
+        
+        db.all(sql, [], (err, count) => {
+            let rows = count[0].total //jumlah data dalam table
+            let page = req.query.page || 1; // nilai awal page
+            let limit = 3; // batas data yang di tampilkan 
+            let totalPage = Math.ceil(rows / limit) // mencari jumlah data
+            let pages = (page - 1) * limit
+            let queries = req.url === '/' ? '/?page=1' : req.url;
+            let Query = req.query;
+            
+            sql = `select * from inputan`;
+            if (stat == true) {
+                sql += ` where ${joindata} `
+            }
+            
+            sql += ` LIMIT ${limit} OFFSET ${pages}`
+            
+            // menampilkan semua data yang ada di table data
+            db.all(sql, [], (err, row) => {
+                console.log(sql);
+                
+            res.render('list', { data: row,pages: totalPage, current: page, query:queries, Query:Query})
+        })
+    })
+});
 
-    // res.json({
-    //   "page": page,
-    //   "pageCount": pageCount,
-    //   "posts": posts.slice(page * 2 - 2, page * 2)
-    // });
-  })
+
+
+
 
 //---------ADD-----------\\
 app.get('/add', (req, res) => res.render('add'))

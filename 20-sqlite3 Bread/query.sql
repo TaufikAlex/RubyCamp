@@ -9,5 +9,15 @@ CREATE TABLE inputan (
 );
 
 INSERT INTO inputan (dataString, dataInteger, dataFloat, dataDate, dataBoolean)
-VALUES('Super Sekali', 1, 1.45, '2017-12-12', "true"),
-('Dont Give Up', 1, 2.54, '2019-10-10', "false");
+VALUES('Meong', 12, 1.04, '2020-12-12', "true"),
+('human error', 1, 2.54, '2019-10-10', "true"),
+('anak meong1', 1, 1.01, '2019-10-10', "false"),
+('human aum', 1, 2.54, '2019-10-10', "true"),
+('anak meong2', 1, 1.02, '2019-10-10', "false"),
+('human cim', 1, 1.03, '2019-10-10', "true"),
+('anak meong3', 1, 1.04, '2019-10-10', "false"),
+('human qori', 1, 2.54, '2019-10-10', "true"),
+('anak meong4', 1, 1.05, '2019-10-10', "false"),
+('anak meong5', 1, 2.54, '2019-10-10', "true"),
+('human auah', 1, 1.06, '2019-10-10', "false");
+

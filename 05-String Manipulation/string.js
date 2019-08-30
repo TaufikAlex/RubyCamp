@@ -8,6 +8,11 @@ function stringManipulation(word) {
         return hasil;
     }
 }
+
+
+console.log(stringManipulation('ayam'));
+console.log(stringManipulation('bebek'));
+console.log(stringManipulation('kodok'));
     // if (word.slice("a","i","u","e","o")){
     //     console.log(word);
 
@@ -20,9 +25,6 @@ function stringManipulation(word) {
 
 
 
-console.log(stringManipulation('ayam'));
-console.log(stringManipulation('bebek'));
-console.log(stringManipulation('kodok'));
 
 
 
